@@ -1,11 +1,12 @@
 /**
- * Product.js
+ * Ingredient.js
  *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
 
 module.exports = {
+
   attributes: {
     code: {
       type: 'string',
@@ -18,22 +19,9 @@ module.exports = {
       required: true
     },
     description: {
-      type: 'text',
+      type: 'string',
       size: 100,
       required: false
-    },
-    ingredient: {
-      model: 'ingredient',
-      required: true,
-      columnName: 'ingredient_id'
-    },
-    image: {
-      type: 'string',
-      required: false
-    },
-    size: {
-      type: 'integer',
-      required: true
     }
   }
 };

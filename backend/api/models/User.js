@@ -14,22 +14,22 @@ module.exports = {
   attributes: {
     email: {
       type: 'email',
-      required: 'true',
+      required: true,
       unique: true,
       size: 20
     },
     password: {
       type: 'string',
-      required: 'true'
+      required: true
     },
     role: {
       type: 'string',
-      enum: ['winco', 'client'],
-      required: 'true'
+      enum: ['winco', 'client']
     },
     name: {
       type: 'string',
-      size: 40
+      size: 40,
+      required: true
     },
     // We don't wan't to send back encrypted password either
     toJSON: function () {

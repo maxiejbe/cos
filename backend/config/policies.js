@@ -28,7 +28,7 @@ module.exports.policies = {
   '*': true,
 
   //TODO: Limit actions by role
-  'CategoryController': {
+  'IngredientController': {
     '*': true,
     'create': ['isAuthorized', 'isAdminRole'],
     'update': ['isAuthorized', 'isAdminRole'],

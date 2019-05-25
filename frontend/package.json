@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "admin-on-rest": "^1.2.1",
-    "aor-language-spanish": "^1.0.2",
+    "aor-language-spanish": "^2.0.5",
     "aor-rich-text-input": "^1.0.2",
     "aws-sdk": "^2.125.0",
     "react": "^15.6.1",
