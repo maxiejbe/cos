@@ -1,0 +1,39 @@
+{
+  "name": "cos-backend",
+  "private": true,
+  "version": "0.0.0",
+  "description": "a Sails application",
+  "keywords": [],
+  "dependencies": {
+    "@sendgrid/client": "^6.1.4",
+    "@sendgrid/mail": "^6.1.4",
+    "bcrypt": "^1.0.2",
+    "excel4node": "^1.2.1",
+    "fs": "0.0.1-security",
+    "include-all": "^1.0.0",
+    "jsonwebtoken": "^7.4.1",
+    "mercadopago": "^1.0.21",
+    "nodemailer": "^4.3.1",
+    "rc": "1.0.1",
+    "request": "^2.83.0",
+    "sails": "~0.12.13",
+    "sails-disk": "~0.10.9",
+    "sails-hook-blueprint-count": "0.0.3",
+    "sails-hook-cron": "^2.2.2",
+    "sails-hook-slugs": "^2.1.0",
+    "sails-mongo": "^0.12.2",
+    "sails-mysql": "^0.11.5",
+    "sendgrid-nodejs": "0.1.0-2"
+  },
+  "scripts": {
+    "debug": "node debug app.js",
+    "start": "node app.js"
+  },
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maxiejbe/cos"
+  },
+  "author": "maxi",
+  "license": ""
+}
