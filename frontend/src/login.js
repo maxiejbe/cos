@@ -184,7 +184,10 @@ const enhance = compose(
             if (values.email && values.email.length > EMAIL_LENGTH){
                 errors.email = translate('resources.register.errors.emailLength');
             }
-            
+            let isValidPassword =  /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/.test(values.password);
+            if( ! isValidPassword) errors.password = translate('resources.register.errors.invalidPassword');
+
+
             if (!values.password) errors.password = translate('aor.validation.required');
             if (values.password && values.password.length > PASSWORD_LENGTH){
                 errors.password = translate('resources.register.errors.passwordLength');

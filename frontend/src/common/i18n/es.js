@@ -115,6 +115,7 @@ export const messages = {
       surname: 'Apellido',
       label: 'Registrarse',
       errors: {
+        invalidPassword: 'La contraseña debe contener Mayusculas, minisculas y numeros',
         repeatpassword: 'Las passwords no conciden',
         emailLength: 'Máximo 20 caracteres',
         passwordLength: 'Máximo 20 caracteres',
