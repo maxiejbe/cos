@@ -1,4 +1,4 @@
-import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR, AUTH_CHECK } from 'admin-on-rest';
+import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR, AUTH_CHECK, AUTH_GET_PERMISSIONS } from 'admin-on-rest';
 
 const API_URL = process.env.REACT_APP_API_URL;
 const ADMIN_ROLE = 'admin';
@@ -40,22 +40,29 @@ export default (type, params) => {
                     throw new Error(loginResult.body.err);
                 }
                 localStorage.setItem('token', loginResult.body.token);
+                localStorage.setItem('role', loginResult.body.user.role);
             })
     }
     if (type === AUTH_LOGOUT) {
         localStorage.removeItem('token');
+        localStorage.removeItem('role');
         return Promise.resolve();
     }
     if (type === AUTH_ERROR) {
         const { status } = params;
         if (status === 401 || status === 403) {
             localStorage.removeItem('token');
+            localStorage.removeItem('role');
             return Promise.reject();
         }
         return Promise.resolve();
     }
     if (type === AUTH_CHECK) {
         return localStorage.getItem('token') ? Promise.resolve() : Promise.reject();
+    }
+    if (type === AUTH_GET_PERMISSIONS) {
+        const role = localStorage.getItem('role');
+        return role ? Promise.resolve(role) : Promise.reject();
     }
     return Promise.resolve();
 }

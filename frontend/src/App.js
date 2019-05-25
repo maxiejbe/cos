@@ -23,13 +23,20 @@ const messages = {
     es: { ...spanishMessages, ...customSpanishMessages }
 };
 
+const ADMIN_ROLE = 'admin';
+const CLIENT_ROLE = 'client';
 
 const App = () => (
     <Admin loginPage={Login} authClient={authClient} restClient={myApiRestClient} customRoutes={customRoutes} title="Cos" locale="es" messages={messages}>
-        <Resource name="ingredients" list={IngredientsList} create={IngredientCreate} edit={IngredientEdit} icon={IngredientIcon} remove={Delete} />
-        <Resource name="products" list={ProductsList} create={ProductCreate} edit={ProductEdit} icon={ProductIcon} remove={Delete} />
-        <Resource name="clients" list={ClientsList} edit={ClientEdit} icon={ClientIcon} remove={Delete} />
-        <Resource name="provinces" />
+        {permissions => [
+            permissions === ADMIN_ROLE 
+                ? <Resource name="ingredients" list={IngredientsList} create={IngredientCreate} edit={IngredientEdit} icon={IngredientIcon} remove={Delete} />
+                : null
+            ,
+            <Resource name="products" list={ProductsList} create={ProductCreate} edit={ProductEdit} icon={ProductIcon} remove={Delete} />,
+            <Resource name="clients" list={ClientsList} edit={ClientEdit} icon={ClientIcon} remove={Delete} />,
+            <Resource name="provinces" />
+        ]}
     </Admin>
 );
 
