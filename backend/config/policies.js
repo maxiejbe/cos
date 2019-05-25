@@ -30,7 +30,7 @@ module.exports.policies = {
   //TODO: Limit actions by role
   'IngredientController': {
     '*': true,
-    'create': ['isAuthorized', 'isAdminRole'],
+    'create': ['isAuthorized', 'isAdminRole', 'ingredientCodeUnique'],
     'update': ['isAuthorized', 'isAdminRole'],
     'destroy': ['isAuthorized', 'isAdminRole']
   },

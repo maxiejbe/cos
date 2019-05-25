@@ -11,7 +11,8 @@ module.exports = {
     code: {
       type: 'string',
       size: 6,
-      required: true
+      required: true,
+      unique: true
     },
     name: {
       type: 'string',

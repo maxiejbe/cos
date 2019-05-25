@@ -13,7 +13,7 @@ export const IngredientEdit = (props) => (
     <Edit title={<IngredientTitle />} {...props}>
         <SimpleForm redirect="list"> 
             <DisabledInput source="id" />
-            <TextInput source="code" validate={[ required, maxLength(6) ]} />
+            <DisabledInput source="code" />
             <TextInput source="name" validate={[ required, maxLength(20) ]} />
             <TextInput source="description" validate={[ maxLength(100) ]} />
         </SimpleForm>
