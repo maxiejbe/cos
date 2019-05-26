@@ -31,7 +31,7 @@ const App = () => (
         {permissions => [
             permissions === ADMIN_ROLE 
                 ? <Resource name="ingredients" list={IngredientsList} create={IngredientCreate} edit={IngredientEdit} icon={IngredientIcon} remove={Delete} />
-                : null
+                : <Resource name="ingredients" />
             ,
             <Resource name="products" 
                 list={ProductsList} 
@@ -40,8 +40,8 @@ const App = () => (
                 show={ProductShow} 
                 icon={ProductIcon} 
                 remove={permissions === ADMIN_ROLE ? Delete : null} />,
-            <Resource name="clients" list={ClientsList} edit={ClientEdit} icon={ClientIcon} remove={Delete} />,
-            <Resource name="provinces" />
+            <Resource name="clients" /> //list={ClientsList} edit={ClientEdit} icon={ClientIcon} remove={Delete},
+            
         ]}
     </Admin>
 );
