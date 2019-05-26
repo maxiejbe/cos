@@ -157,23 +157,14 @@ export const messages = {
       },
       title: 'Productos',
       name: 'Producto |||| Productos',
-      tabs: {
-        general: 'General',
-        images: 'Imágenes',
-        manual: 'Manual',
-        hdImages: 'Imágenes HD',
-        catalogImages: 'imágenes catálogo'
-      },
       fields: {
         id: 'ID',
         code: 'Código',
         name: 'Nombre',
-        category: 'Categoría',
-        price: 'Precio',
         description: 'Descripción',
-        quantityPerPackage: 'Cantidad por bulto',
-        featured: 'Destacado',
-        enabled: 'Habilitado'
+        ingredient: 'Ppio activo',
+        image: 'Imágen',
+        size: 'Tamaño'
       }
     }
   }

@@ -157,10 +157,7 @@ const convertUrlToFileInput = urls => {
 };
 const convertProductResponseToREST = json => ({
   ...json,
-  images: convertUrlToFileInput(json.images),
-  hdImages: convertUrlToFileInput(json.hdImages),
-  catalogImages: convertUrlToFileInput(json.catalogImages),
-  manual: convertUrlToFileInput(json.manual)
+  image: convertUrlToFileInput(json.image)
 });
 
 /**
@@ -177,24 +174,12 @@ const convertHTTPResponseToREST = (response, type, resource, params, count) => {
     case COUNT:
       return json.count;
     case GET_ONE:
-      if (resource === 'products') {
-        return { data: convertProductResponseToREST(json) };
-      } else {
-        return { data: json };
-      }
+      return { data: json };
     case GET_LIST:
-      if (resource === 'products') {
-        return { data: json.map(convertProductResponseToREST), total: count };
-      } else {
-        return { data: json.map(x => x), total: count };
-      }
+      return { data: json.map(x => x), total: count };
     case CREATE:
     case UPDATE:
-      if (resource === 'products') {
-        return { data: convertProductResponseToREST(json) };
-      } else {
-        return { data: json };
-      }
+      return { data: json };
     default:
       return { data: json };
   }
@@ -245,42 +230,18 @@ const imageFilenameGenerator = folder => file => {
 
 const updateProduct = (type, resource, params) => {
   const product = params.data;
-  const manual = transformFileNames(product, product.manual);
-  const images = transformFileNames(
-    product,
-    product.images,
-    imageFilenameGenerator('images')
-  );
-  const hdImages = transformFileNames(
-    product,
-    product.hdImages,
-    imageFilenameGenerator('hd')
-  );
-  const catalogImages = transformFileNames(
-    product,
-    product.catalogImages,
-    imageFilenameGenerator('catalog')
-  );
-  const files = [...manual, ...images, ...hdImages, ...catalogImages];
-  const newFiles = files.filter(file => file.rawFile);
-
+  const image = transformFileNames(product, product.image);
+  
   return s3Client
-    .upload(newFiles)
+    .upload(image)
     .then(() => ({
       ...params,
       data: {
         ...params.data,
-        images: images.map(productFileUrl),
-        hdImages: hdImages.map(productFileUrl),
-        catalogImages: catalogImages.map(productFileUrl),
-        manual: manual[0] ? productFileUrl(manual[0]) : null
+        image: image
       }
     }))
     .then(params => executeRequest(type, resource, params));
-}
-
-const updateClient = (type, resource, params) => {
-  return executeRequest(type, resource, params);
 }
 
 /**
@@ -295,13 +256,9 @@ export default (type, resource, params) => {
   switch (type) {
     case CREATE:
     case UPDATE:
-      if (resource === 'products') {
-        return updateProduct(type, resource, params);
-      }
-
-      if (resource === 'clients'){
-        return updateClient(type, resource, params);
-      }
+      //if (resource === 'products') {
+      //  return updateProduct(type, resource, params);
+      //}
     case GET_LIST: {
       //We first need to retrieve count, then find elements
       const { url, options } = convertRESTRequestToHTTP(

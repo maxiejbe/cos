@@ -16,7 +16,6 @@ const IngredientsFilter = ({ ...props }) => (
 export const IngredientsList = (props) => (
     <List filters={<IngredientsFilter />} title={<IngredientsTitle />} {...props} sort={{ field: 'id', order: 'ASC' }}>
         <Datagrid>
-            <NumberField source="id" label="resources.ingredients.fields.id" />
             <TextField source="code" label="resources.ingredients.fields.code" />
             <TextField source="name" label="resources.ingredients.fields.name" />
             <TextField source="description" label="resources.ingredients.fields.description" />

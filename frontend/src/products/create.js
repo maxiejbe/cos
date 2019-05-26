@@ -21,70 +21,31 @@ import {
 
 export const ProductCreate = props => (
   <Create {...props}>
-    <TabbedForm redirect="list">
-      <FormTab label="resources.products.tabs.general">
-        <TextInput source="code" validate={[required, maxLength(10)]} />
-        <TextInput source="name" validate={[required, maxLength(100)]} />
+    <SimpleForm redirect="list">
+        <TextInput source="code" validate={[required, maxLength(6)]} />
+        <TextInput source="name" validate={[required, maxLength(20)]} />
+        <RichTextInput source="description" validate={[maxLength(100)]} />
+        
         <ReferenceInput
-          label="resources.products.fields.category"
-          source="category"
-          reference="categories"
+          label="resources.products.fields.ingredient"
+          source="ingredient.id"
+          reference="ingredients"
           allowEmpty
           validate={[required]}
           perPage={100}
-          sort={{ field: 'name', order: 'ASC' }}
-        >
+          sort={{ field: 'name', order: 'ASC' }}>
           <SelectInput optionText="name" />
         </ReferenceInput>
-        <BooleanInput source="enabled" defaultValue={true} />
-        <BooleanInput source="featured" />
-        <NumberInput source="price" />
-        <NumberInput source="quantityPerPackage" />
-        <RichTextInput source="description" />
-      </FormTab>
-      <FormTab label="resources.products.tabs.manual">
-        <FileInput
-          source="manual"
-          label=""
-          accept="application/pdf"
-          placeholder={<p>Click aquí o arrastre y suelte el manual (PDF)</p>}
-        >
-          <FileField source="src" title="title" />
-        </FileInput>
-      </FormTab>
-      <FormTab label="resources.products.tabs.images">
+        <NumberInput source="size" validate={[required]} />
         <ImageInput
-          multiple
-          source="images"
+          source="image"
           label=""
           accept="image/*"
-          placeholder={<p>Click aquí o arrastre y suelte las imágenes</p>}
+          placeholder={<p>Click aquí o arrastre y suelte la imágen</p>}
         >
           <ImageField source="src" title="title" />
         </ImageInput>
-      </FormTab>
-      <FormTab label="resources.products.tabs.hdImages">
-        <ImageInput
-          multiple
-          source="hdImages"
-          label=""
-          accept="image/*"
-          placeholder={<p>Click aquí o arrastre y suelte las imágenes</p>}
-        >
-          <ImageField source="src" title="title" />
-        </ImageInput>
-      </FormTab>
-      <FormTab label="resources.products.tabs.catalogImages">
-        <ImageInput
-          multiple
-          source="catalogImages"
-          label=""
-          accept="image/*"
-          placeholder={<p>Click aquí o arrastre y suelte las imágenes</p>}
-        >
-          <ImageField source="src" title="title" />
-        </ImageInput>
-      </FormTab>
-    </TabbedForm>
+
+    </SimpleForm>
   </Create>
 );
