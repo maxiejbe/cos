@@ -29,10 +29,6 @@ const CLIENT_ROLE = 'client';
 const App = () => (
     <Admin loginPage={Login} authClient={authClient} restClient={myApiRestClient} customRoutes={customRoutes} title="Cos" locale="es" messages={messages}>
         {permissions => [
-            permissions === ADMIN_ROLE 
-                ? <Resource name="ingredients" list={IngredientsList} create={IngredientCreate} edit={IngredientEdit} icon={IngredientIcon} remove={Delete} />
-                : <Resource name="ingredients" />
-            ,
             <Resource name="products" 
                 list={ProductsList} 
                 create={permissions === ADMIN_ROLE ? ProductCreate : null}                 
@@ -40,6 +36,10 @@ const App = () => (
                 show={ProductShow} 
                 icon={ProductIcon} 
                 remove={permissions === ADMIN_ROLE ? Delete : null} />,
+            permissions === ADMIN_ROLE 
+                ? <Resource name="ingredients" list={IngredientsList} create={IngredientCreate} edit={IngredientEdit} icon={IngredientIcon} remove={Delete} />
+                : <Resource name="ingredients" />
+            ,
             <Resource name="clients" /> //list={ClientsList} edit={ClientEdit} icon={ClientIcon} remove={Delete},
             
         ]}
