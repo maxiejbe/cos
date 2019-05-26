@@ -57,4 +57,6 @@ try {
 
 
 // Start server
-sails.lift(rc('sails'));
+sails.lift({
+  paths: { public: './assets/uploads' }, 
+}, function(err, server) {});

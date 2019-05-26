@@ -42,6 +42,11 @@ module.exports.routes = {
     action: 'search',  
   },
 
+  'POST /products/upload': {  
+    controller: 'ProductController',  
+    action: 'upload',  
+  },
+
   /*'GET /users/resetpassword': {  
     controller: 'UserController',  
     action: 'resetPassword',  

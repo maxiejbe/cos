@@ -47,6 +47,26 @@ module.exports = {
       .exec(function(err, products){
         return res.ok(products);
     });    
+  },
+
+  upload: function (req, res) {
+    req.file('file').upload({
+      // don't allow the total upload size to exceed ~100MB
+      maxBytes: 100000000,
+      // set the directory
+      dirname: '../../assets/uploads'
+    },function (err, uploadedFile) {
+      // if error negotiate
+      if (err) return res.negotiate(err);
+      // logging the filename
+      //console.log(uploadedFile);
+      // send ok response
+      if (uploadedFile.length === 0){
+        return res.ok({fileName: ''});
+      }
+      return res.ok({fileName: uploadedFile.shift().fd.split('/').pop()});
+    });
   }
+   
 };
 

@@ -9,8 +9,6 @@ import {
   DELETE,
   fetchUtils
 } from 'admin-on-rest';
-import uuid from 'uuid/v4';
-import s3Client from './s3Client';
 
 const API_URL = process.env.REACT_APP_API_URL;
 const BUCKET = process.env.REACT_APP_S3_BUCKET;
@@ -157,7 +155,8 @@ const convertUrlToFileInput = urls => {
 };
 const convertProductResponseToREST = json => ({
   ...json,
-  image: convertUrlToFileInput(json.image)
+  image: convertUrlToFileInput(json.image),
+  singleImage: json.image
 });
 
 /**
@@ -174,12 +173,24 @@ const convertHTTPResponseToREST = (response, type, resource, params, count) => {
     case COUNT:
       return json.count;
     case GET_ONE:
-      return { data: json };
+      if (resource === 'products') {
+        return { data: convertProductResponseToREST(json) };	
+      } else {	
+        return { data: json };	
+      }
     case GET_LIST:
-      return { data: json.map(x => x), total: count };
+      if (resource === 'products') {
+        return { data: json.map(convertProductResponseToREST), total: count };	
+      } else {	
+        return { data: json.map(x => x), total: count };	
+      }
     case CREATE:
     case UPDATE:
-      return { data: json };
+      if (resource === 'products') {	      
+        return { data: convertProductResponseToREST(json) };	
+      } else {	
+        return { data: json };	
+      }
     default:
       return { data: json };
   }
@@ -201,44 +212,35 @@ const executeRequest = (type, resource, params, count) => {
   });
 };
 
-const productFilePath = (product, file, filenameGenerator) =>
-  `products/${product.code}/${filenameGenerator(file)}`;
+const uploadFile = file => {
+  return new Promise((resolve, reject) =>{
 
-const productFileUrl = file =>
-  `https://${BUCKET}.s3.amazonaws.com/${file.title}`;
+    var formData = new FormData();
+    formData.append('file', file.rawFile);
 
-const transformFileNames = (
-  product,
-  files = [],
-  filenameGenerator = f => f.title
-) =>
-  files.map(file => ({
-    ...file,
-    title: productFilePath(product, file, filenameGenerator)
-  }));
-
-const imageFilenameGenerator = folder => file => {
-  const fileName = file.title;
-  const extensionPosition = fileName.lastIndexOf('.');
-  const extension = extensionPosition
-    ? fileName.substring(extensionPosition)
-    : '';
-  return file.rawFile
-    ? `${folder}/${uuid()}${extension}`
-    : `${folder}/${fileName}`;
+    return fetch(API_URL + '/products/upload', {
+      // content-type header should not be specified!
+      method: 'POST',
+      body: formData
+    }).then(response => response.json()).then(resolve).catch(reject)
+  });
 };
 
 const updateProduct = (type, resource, params) => {
   const product = params.data;
-  const image = transformFileNames(product, product.image);
-  
-  return s3Client
-    .upload(image)
-    .then(() => ({
+  let image;
+  if (product.image && product.image.length > 0){
+    image = product.image[0];
+  }
+
+  console.log(image);
+  if (!image) return executeRequest(type, resource, params);
+
+  return uploadFile(image).then((uploadResult) => ({
       ...params,
       data: {
         ...params.data,
-        image: image
+        image: uploadResult.fileName.length > 0 ? API_URL + '/' + uploadResult.fileName : ''
       }
     }))
     .then(params => executeRequest(type, resource, params));
@@ -256,9 +258,9 @@ export default (type, resource, params) => {
   switch (type) {
     case CREATE:
     case UPDATE:
-      //if (resource === 'products') {
-      //  return updateProduct(type, resource, params);
-      //}
+      if (resource === 'products') {
+       return updateProduct(type, resource, params);
+      }
     case GET_LIST: {
       //We first need to retrieve count, then find elements
       const { url, options } = convertRESTRequestToHTTP(

@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Filter, Datagrid, ReferenceInput, BooleanInput, SelectInput, DeleteButton, EditButton, BooleanField, TextInput, TextField, NumberField, translate } from 'admin-on-rest';
+import { List, Filter, Datagrid, ReferenceInput, ShowButton, ImageField, BooleanInput, SelectInput, DeleteButton, EditButton, BooleanField, TextInput, TextField, NumberField, translate } from 'admin-on-rest';
 import Chip from 'material-ui/Chip';
 
 const ProductsTitle = () => {
@@ -23,8 +23,8 @@ export const ProductsList = (props) => (
             <TextField source="name" label="resources.products.fields.name" />
             <TextField source="description" label="resources.products.fields.description" />
             <TextField source="ingredient.name" label="resources.products.fields.ingredient" />
-            <TextField source="image" label="resources.products.fields.image" />
             <NumberField source="size" label="resources.products.fields.size" />        
+            <ShowButton /> 
             <EditButton />
             <DeleteButton />
         </Datagrid>
