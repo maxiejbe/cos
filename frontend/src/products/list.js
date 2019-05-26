@@ -17,17 +17,17 @@ const ProductsFilter = ({ ...props }) => (
     </Filter>
 );
 
-export const ProductsList = ({ permissions, ...props }) => (
+export const ProductsList = (props) => (
     <List filters={<ProductsFilter />} title={<ProductsTitle />} {...props} sort={{ field: 'id', order: 'ASC' }}>
         <Datagrid>
             <TextField source="code" label="resources.products.fields.code" />
             <TextField source="name" label="resources.products.fields.name" />
-            <TextField source="description" label="resources.products.fields.description" />
             <TextField source="ingredient.name" label="resources.products.fields.ingredient" />
+            <TextField source="singleImage" label="resources.products.fields.image" />
             <NumberField source="size" label="resources.products.fields.size" />        
             <ShowButton /> 
-            {permissions === ADMIN_ROLE && <EditButton />}
-            {permissions === ADMIN_ROLE && <DeleteButton />}
+            {localStorage.getItem('role') == ADMIN_ROLE && <EditButton />}
+            {localStorage.getItem('role') == ADMIN_ROLE && <DeleteButton />}
         </Datagrid>
     </List>
 );

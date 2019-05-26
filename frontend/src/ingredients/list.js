@@ -18,7 +18,6 @@ export const IngredientsList = (props) => (
         <Datagrid>
             <TextField source="code" label="resources.ingredients.fields.code" />
             <TextField source="name" label="resources.ingredients.fields.name" />
-            <TextField source="description" label="resources.ingredients.fields.description" />
             <EditButton />
             <DeleteButton /> 
         </Datagrid>
