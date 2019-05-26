@@ -33,7 +33,13 @@ const App = () => (
                 ? <Resource name="ingredients" list={IngredientsList} create={IngredientCreate} edit={IngredientEdit} icon={IngredientIcon} remove={Delete} />
                 : null
             ,
-            <Resource name="products" list={ProductsList} create={ProductCreate} edit={ProductEdit} show={ProductShow} icon={ProductIcon} remove={Delete}/>,
+            <Resource name="products" 
+                list={ProductsList} 
+                create={permissions === ADMIN_ROLE ? ProductCreate : null}                 
+                edit={permissions === ADMIN_ROLE ? ProductEdit : null} 
+                show={ProductShow} 
+                icon={ProductIcon} 
+                remove={permissions === ADMIN_ROLE ? Delete : null} />,
             <Resource name="clients" list={ClientsList} edit={ClientEdit} icon={ClientIcon} remove={Delete} />,
             <Resource name="provinces" />
         ]}

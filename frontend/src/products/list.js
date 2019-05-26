@@ -1,6 +1,7 @@
 import React from 'react';
 import { List, Filter, Datagrid, ReferenceInput, ShowButton, ImageField, BooleanInput, SelectInput, DeleteButton, EditButton, BooleanField, TextInput, TextField, NumberField, translate } from 'admin-on-rest';
 import Chip from 'material-ui/Chip';
+const ADMIN_ROLE = 'admin';
 
 const ProductsTitle = () => {
     return <span>Listado de Productos</span>;
@@ -16,7 +17,7 @@ const ProductsFilter = ({ ...props }) => (
     </Filter>
 );
 
-export const ProductsList = (props) => (
+export const ProductsList = ({ permissions, ...props }) => (
     <List filters={<ProductsFilter />} title={<ProductsTitle />} {...props} sort={{ field: 'id', order: 'ASC' }}>
         <Datagrid>
             <TextField source="code" label="resources.products.fields.code" />
@@ -25,8 +26,8 @@ export const ProductsList = (props) => (
             <TextField source="ingredient.name" label="resources.products.fields.ingredient" />
             <NumberField source="size" label="resources.products.fields.size" />        
             <ShowButton /> 
-            <EditButton />
-            <DeleteButton />
+            {permissions === ADMIN_ROLE && <EditButton />}
+            {permissions === ADMIN_ROLE && <DeleteButton />}
         </Datagrid>
     </List>
 );
