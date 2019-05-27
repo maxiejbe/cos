@@ -32,7 +32,7 @@ module.exports.policies = {
     '*': true,
     'create': ['isAuthorized', 'isAdminRole', 'ingredientCodeUnique'],
     'update': ['isAuthorized', 'isAdminRole'],
-    'destroy': ['isAuthorized', 'isAdminRole']
+    'destroy': ['isAuthorized', 'isAdminRole', 'ingredientIsBeingUsed']
   },
 
   'ProductController': {
