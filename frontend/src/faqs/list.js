@@ -13,7 +13,7 @@ const FaqsFilter = ({ ...props }) => (
 );
 
 export const FaqsList = (props) => (
-    <List filters={<FaqsFilter />} title={<FaqsTitle />} {...props} sort={{ field: 'id', order: 'ASC' }}>
+    <List filters={<FaqsFilter />} title={<FaqsTitle />} {...props} sort={{ field: 'id', order: 'ASC' }}>    
         <Datagrid>
             <TextField source="question" label="resources.faqs.fields.question" />
             <RichTextField source="answer" label="resources.faqs.fields.answer" />

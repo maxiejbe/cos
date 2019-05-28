@@ -11,7 +11,6 @@ import {
 } from 'admin-on-rest';
 
 const API_URL = process.env.REACT_APP_API_URL;
-const BUCKET = process.env.REACT_APP_S3_BUCKET;
 
 const prepareFilters = params => {
   let filters = params.filter;
