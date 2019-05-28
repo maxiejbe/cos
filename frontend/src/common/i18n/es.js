@@ -158,6 +158,17 @@ export const messages = {
         image: 'Imágen',
         size: 'Tamaño'
       }
+    },
+    contacts: {
+      title: 'Consultas realizadas',
+      name: 'Consulta |||| Contacto',
+      fields: {
+        name: 'Nombre',
+        surname: 'Apellido',
+        email: 'Email',
+        phone: 'Teléfono',
+        message: 'Mensaje'
+      }
     }
   }
 };

@@ -33,6 +33,11 @@ module.exports = {
       required: true,
       size: 300
     },
+    user: {
+      model: 'user',
+      required: false,
+      columnName: 'user_id'
+    },
   },
   afterCreate: function (values, next) {
     //sendGrid.sendContactEmail(values);

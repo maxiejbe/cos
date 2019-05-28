@@ -16,6 +16,9 @@ import ProductIcon from 'material-ui/svg-icons/action/shopping-cart';
 import { FaqsList, FaqCreate, FaqEdit } from './faqs';
 import FaqIcon from 'material-ui/svg-icons/action/question-answer';
 
+import { ContactList, ContactCreate } from './contact';
+import ContactIcon from 'material-ui/svg-icons/action/search';
+
 import spanishMessages from 'aor-language-spanish';
 import customSpanishMessages from './common/i18n/es';
 
@@ -24,6 +27,7 @@ const messages = {
 };
 
 const ADMIN_ROLE = 'admin';
+const CLIENT_ROLE = 'client';
 
 const App = () => (
     <Admin loginPage={Login} authClient={authClient} restClient={myApiRestClient} customRoutes={customRoutes} title="Cos" locale="es" messages={messages}>
@@ -45,6 +49,11 @@ const App = () => (
                 edit={permissions === ADMIN_ROLE ? FaqEdit : null} 
                 icon={FaqIcon} 
                 remove={Delete} />
+            ,
+            <Resource name="contacts" 
+                list={ContactList} 
+                create={permissions === CLIENT_ROLE ? ContactCreate : null}                 
+                icon={ContactIcon} />
         ]}
     </Admin>
 );

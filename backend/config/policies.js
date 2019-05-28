@@ -57,8 +57,10 @@ module.exports.policies = {
   },
 
   'ContactController': {
-    '*': ['isAuthorized', 'isAdminRole'],
-    'create': true
+    '*': ['isAuthorized', 'filterContactByUser'],
+    'create': ['isAuthorized', 'setUserIdInBody'],
+    'update': false,
+    'destroy': false
   },
 
   /***************************************************************************
