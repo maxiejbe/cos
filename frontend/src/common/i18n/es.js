@@ -132,23 +132,13 @@ export const messages = {
         id: 'ID',
         name: 'Nombre',
         code: 'Código',
-        name: 'Nombre',
         description: 'Descripción'
       }
     },
-    clients: {
-      search: {
-        name: 'Buscar nombre'
-      },
-      title: 'Clietes',
-      name: 'Cliente |||| Clientes',
+    faqs: {
       fields: {
-        id: 'ID',
-        cuit: 'DNI/CUIT',
-        name: 'Razón Social',
-        email: 'E-mail',
-        phone: 'Teléfono',
-        status: 'Estado'
+        question: 'Pregunta',
+        answer: 'Respuesta'
       }
     },
     products: {

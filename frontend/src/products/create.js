@@ -5,16 +5,10 @@ import {
   ReferenceInput,
   SelectInput,
   SimpleForm,
-  BooleanInput,
   NumberInput,
   TextInput,
-  TabbedForm,
-  FormTab,
   ImageField,
   ImageInput,
-  FileInput,
-  FileField,
-  translate,
   maxLength,
   required
 } from 'admin-on-rest';

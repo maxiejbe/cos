@@ -1,6 +1,6 @@
 import React from 'react';
 import RichTextInput from 'aor-rich-text-input';
-import { Edit, DisabledInput, ReferenceInput, SelectInput, SimpleForm, DeleteButton, BooleanInput, TextInput, translate, maxLength, required } from 'admin-on-rest';
+import { Edit, DisabledInput, SimpleForm, TextInput, maxLength, required } from 'admin-on-rest';
 
 const IngredientTitle = ({ record }) => {
 

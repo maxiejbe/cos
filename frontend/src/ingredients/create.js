@@ -1,7 +1,7 @@
 import React from 'react';
 import RichTextInput from 'aor-rich-text-input';
 
-import { Create, ReferenceInput, SelectInput, SimpleForm, BooleanInput, TextInput, translate, maxLength, required } from 'admin-on-rest';
+import { Create, SimpleForm,TextInput, maxLength, required } from 'admin-on-rest';
 
 export const IngredientCreate = (props) => (
   <Create {...props}>

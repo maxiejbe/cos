@@ -1,8 +1,6 @@
 import React from 'react';
-import RichTextInput from 'aor-rich-text-input';
 import {
   TextField,
-  NumberField,
   Show,
   SimpleShowLayout,
   RichTextField,

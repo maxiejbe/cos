@@ -35,6 +35,13 @@ module.exports.policies = {
     'destroy': ['isAuthorized', 'isAdminRole', 'ingredientIsBeingUsed']
   },
 
+  'FaqController': {
+    '*': true,
+    'create': ['isAuthorized', 'isAdminRole'],
+    'update': ['isAuthorized', 'isAdminRole'],
+    'destroy': ['isAuthorized', 'isAdminRole']
+  },
+
   'ProductController': {
     '*': true,
     'create': ['isAuthorized', 'isAdminRole'],

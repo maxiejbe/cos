@@ -2,20 +2,13 @@ import React from 'react';
 import RichTextInput from 'aor-rich-text-input';
 import {
   Edit,
-  DisabledInput,
   ReferenceInput,
   NumberInput,
   SelectInput,
   SimpleForm,
-  BooleanInput,
   TextInput,
-  TabbedForm,
-  FormTab,
   ImageField,
   ImageInput,
-  FileInput,
-  FileField,
-  translate,
   maxLength,
   required
 } from 'admin-on-rest';

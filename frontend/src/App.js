@@ -1,5 +1,5 @@
 import React from 'react';
-import { Admin, Resource, Delete, Show } from 'admin-on-rest';
+import { Admin, Resource, Delete } from 'admin-on-rest';
 
 import Login from './login';
 import customRoutes from './customRoutes';
@@ -13,8 +13,8 @@ import IngredientIcon from 'material-ui/svg-icons/action/label';
 import { ProductsList, ProductCreate, ProductEdit, ProductShow } from './products';
 import ProductIcon from 'material-ui/svg-icons/action/shopping-cart';
 
-import { ClientsList, ClientEdit } from './clients';
-import ClientIcon from 'material-ui/svg-icons/social/people';
+import { FaqsList, FaqCreate, FaqEdit } from './faqs';
+import FaqIcon from 'material-ui/svg-icons/action/question-answer';
 
 import spanishMessages from 'aor-language-spanish';
 import customSpanishMessages from './common/i18n/es';
@@ -24,7 +24,6 @@ const messages = {
 };
 
 const ADMIN_ROLE = 'admin';
-const CLIENT_ROLE = 'client';
 
 const App = () => (
     <Admin loginPage={Login} authClient={authClient} restClient={myApiRestClient} customRoutes={customRoutes} title="Cos" locale="es" messages={messages}>
@@ -40,8 +39,12 @@ const App = () => (
                 ? <Resource name="ingredients" list={IngredientsList} create={IngredientCreate} edit={IngredientEdit} icon={IngredientIcon} remove={Delete} />
                 : <Resource name="ingredients" />
             ,
-            <Resource name="clients" /> //list={ClientsList} edit={ClientEdit} icon={ClientIcon} remove={Delete},
-            
+            <Resource name="faqs" 
+                list={FaqsList} 
+                create={permissions === ADMIN_ROLE ? FaqCreate : null}                 
+                edit={permissions === ADMIN_ROLE ? FaqEdit : null} 
+                icon={FaqIcon} 
+                remove={Delete} />
         ]}
     </Admin>
 );

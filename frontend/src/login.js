@@ -1,11 +1,10 @@
-import { Notification, maxLength, required, translate, userLogin as userLoginAction } from 'admin-on-rest';
+import { Notification, translate, userLogin as userLoginAction } from 'admin-on-rest';
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { propTypes, reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
-import { Link } from 'react-router-dom';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';

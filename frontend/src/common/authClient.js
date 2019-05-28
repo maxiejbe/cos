@@ -1,7 +1,6 @@
 import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR, AUTH_CHECK, AUTH_GET_PERMISSIONS } from 'admin-on-rest';
 
 const API_URL = process.env.REACT_APP_API_URL;
-const ADMIN_ROLE = 'admin';
 
 export default (type, params) => {
     if (type === AUTH_LOGIN) {

@@ -1,6 +1,5 @@
 import React from 'react';
-import { List, Filter, Datagrid, ReferenceInput, BooleanInput, SelectInput, DeleteButton, EditButton, BooleanField, TextInput, TextField, NumberField, translate } from 'admin-on-rest';
-import Chip from 'material-ui/Chip';
+import { List, Filter, Datagrid, DeleteButton, EditButton, TextInput, TextField } from 'admin-on-rest';
 
 const IngredientsTitle = () => {
     return <span>Listado de Principios activos</span>;

@@ -1,6 +1,5 @@
 import React from 'react';
-import { List, Filter, Datagrid, ReferenceInput, ShowButton, ImageField, BooleanInput, SelectInput, DeleteButton, EditButton, BooleanField, TextInput, TextField, NumberField, translate } from 'admin-on-rest';
-import Chip from 'material-ui/Chip';
+import { List, Filter, Datagrid, ReferenceInput, ShowButton, SelectInput, DeleteButton, EditButton, TextInput, TextField, NumberField } from 'admin-on-rest';
 const ADMIN_ROLE = 'admin';
 
 const ProductsTitle = () => {
@@ -26,8 +25,8 @@ export const ProductsList = (props) => (
             <TextField source="singleImage" label="resources.products.fields.image" />
             <NumberField source="size" label="resources.products.fields.size" />        
             <ShowButton /> 
-            {localStorage.getItem('role') == ADMIN_ROLE && <EditButton />}
-            {localStorage.getItem('role') == ADMIN_ROLE && <DeleteButton />}
+            {localStorage.getItem('role') === ADMIN_ROLE && <EditButton />}
+            {localStorage.getItem('role') === ADMIN_ROLE && <DeleteButton />}
         </Datagrid>
     </List>
 );
