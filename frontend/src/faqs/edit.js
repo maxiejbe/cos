@@ -4,7 +4,7 @@ import { Edit, SimpleForm, TextInput, maxLength, required } from 'admin-on-rest'
 
 const IngredientTitle = ({ record }) => {
 
-    return <span>Faq {record ? `"${record.id}"` : ''}</span>;
+    return <span>Pregunta frecuente {record ? `"${record.id}"` : ''}</span>;
 };
 
 export const FaqEdit = (props) => (

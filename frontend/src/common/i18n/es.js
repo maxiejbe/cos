@@ -136,6 +136,8 @@ export const messages = {
       }
     },
     faqs: {
+      title: 'Preguntas frecuentes',
+      name: 'Pregunta frecuente |||| Ayuda',
       fields: {
         question: 'Pregunta',
         answer: 'Respuesta'
