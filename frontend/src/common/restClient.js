@@ -227,19 +227,20 @@ const uploadFile = file => {
 
 const updateProduct = (type, resource, params) => {
   const product = params.data;
-  let image;
+  let imageToSave;
   if (product.image && product.image.length > 0){
-    image = product.image[0];
+    imageToSave = product.image[0];
   }
 
-  console.log(image);
-  if (!image) return executeRequest(type, resource, params);
+  console.log(product);
 
-  return uploadFile(image).then((uploadResult) => ({
+  if (!imageToSave) return executeRequest(type, resource, params);
+
+  return uploadFile(imageToSave).then((uploadResult) => ({
       ...params,
       data: {
         ...params.data,
-        image: uploadResult.fileName.length > 0 ? API_URL + '/' + uploadResult.fileName : ''
+        image: uploadResult.fileName.length > 0 ? API_URL + '/' + uploadResult.fileName : product.singleImage
       }
     }))
     .then(params => executeRequest(type, resource, params));

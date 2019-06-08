@@ -10,6 +10,7 @@ import {
   ImageField,
   ImageInput,
   maxLength,
+  HiddenInput,
   required
 } from 'admin-on-rest';
 
@@ -45,7 +46,7 @@ export const ProductEdit = props => (
         >
           <ImageField source="src" title="title" />
         </ImageInput>
-
+        
     </SimpleForm>
   </Edit>
 );

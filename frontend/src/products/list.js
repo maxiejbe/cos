@@ -22,7 +22,6 @@ export const ProductsList = (props) => (
             <TextField source="code" label="resources.products.fields.code" />
             <TextField source="name" label="resources.products.fields.name" />
             <TextField source="ingredient.name" label="resources.products.fields.ingredient" />
-            <TextField source="singleImage" label="resources.products.fields.image" />
             <NumberField source="size" label="resources.products.fields.size" />        
             <ShowButton /> 
             {localStorage.getItem('role') === ADMIN_ROLE && <EditButton />}

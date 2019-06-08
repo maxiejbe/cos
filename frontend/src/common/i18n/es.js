@@ -30,7 +30,7 @@ export const messages = {
           dashboard: 'Dashboard',
           not_found: 'No encontrado',
           loading: 'Cargando',
-          delete: '¿Está seguro de que desea eliminar el %{name} #%{id}?',
+          delete: '¿Está seguro de que desea eliminar el %{name}?',
       },
       input: {
           file: {
@@ -55,7 +55,7 @@ export const messages = {
       message: {
           yes: 'Sí',
           no: 'No',
-          are_you_sure: '¿Está seguro?',
+          are_you_sure: '',
           about: 'Acerca de',
           not_found:
               'O bien escribió una URL incorrecta o siguió un enlace incorrecto.',
