@@ -115,7 +115,7 @@ export const messages = {
       surname: 'Apellido',
       label: 'Registrarse',
       errors: {
-        invalidPassword: 'La contraseña debe contener Mayusculas, minisculas y numeros',
+        invalidPassword: 'Debe contener mayúsculas, minúsculas y números',
         repeatpassword: 'Las passwords no conciden',
         emailLength: 'Máximo 20 caracteres',
         passwordLength: 'Máximo 20 caracteres',
@@ -168,6 +168,17 @@ export const messages = {
         email: 'Email',
         phone: 'Teléfono',
         message: 'Mensaje'
+      }
+    },
+    users: {
+      title: 'Usuarios',
+      name: 'Usuario |||| Usuarios',
+      fields: {
+        email: 'email',
+        name: 'Nombre',
+        newPassword: 'Nueva contraseña',
+        role: 'Rol',
+        password: 'Contraseña',
       }
     }
   }

@@ -19,6 +19,9 @@ import FaqIcon from 'material-ui/svg-icons/action/question-answer';
 import { ContactList, ContactCreate } from './contact';
 import ContactIcon from 'material-ui/svg-icons/action/search';
 
+import { UsersList, UserCreate, UserEdit, UserShow } from './users';
+import UserIcon from 'material-ui/svg-icons/action/supervisor-account';
+
 import spanishMessages from 'aor-language-spanish';
 import customSpanishMessages from './common/i18n/es';
 
@@ -53,7 +56,16 @@ const App = () => (
             <Resource name="contacts" 
                 list={ContactList} 
                 create={permissions === CLIENT_ROLE ? ContactCreate : null}                 
-                icon={ContactIcon} />
+                icon={ContactIcon} />,
+            
+            permissions === ADMIN_ROLE && <Resource name="users"
+                list={UsersList} 
+                create={UserCreate}                 
+                edit={UserEdit} 
+                show={UserShow} 
+                icon={UserIcon} 
+                remove={Delete} />
+            
         ]}
     </Admin>
 );

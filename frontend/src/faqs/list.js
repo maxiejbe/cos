@@ -1,18 +1,18 @@
 import React from 'react';
 import { Card, CardText, CardHeader, CardActions } from 'material-ui/Card';
 import { ViewTitle } from 'admin-on-rest/lib/mui';
-import { List, Filter, Datagrid, DeleteButton, EditButton, TextInput, TextField } from 'admin-on-rest';
+import { List, Filter, Datagrid, CreateButton, DeleteButton, EditButton, TextInput, TextField } from 'admin-on-rest';
 const ADMIN_ROLE = 'admin';
 
 const FaqsTitle = () => {
     return <span>Preguntas frecuentes</span>;
 };
 
-const FaqsFilter = ({ ...props }) => (
+/*const FaqsFilter = ({ ...props }) => (
     <Filter {...props}>
         <TextInput label="resources.faqs.fields.question" source="question" alwaysOn />
     </Filter>
-);
+);*/
 
 const headerStyle = {
     fontWeight: 'bold'
@@ -49,8 +49,9 @@ FaqsGrid.defaultProps = {
     data: {},
     ids: [],
 };
+
 export const FaqsList = (props) => (
-    <List filters={<FaqsFilter />} title={<FaqsTitle />} {...props} sort={{ field: 'id', order: 'ASC' }}>    
+    <List /*filters={<FaqsFilter />}*/ title={<FaqsTitle />} {...props} sort={{ field: 'id', order: 'ASC' }}>    
         <FaqsGrid />
     </List>
 );

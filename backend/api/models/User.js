@@ -24,7 +24,7 @@ module.exports = {
     },
     role: {
       type: 'string',
-      enum: ['winco', 'client']
+      enum: ['admin', 'client']
     },
     name: {
       type: 'string',
