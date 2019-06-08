@@ -13,6 +13,20 @@ export default (type, params) => {
     if (type === AUTH_LOGIN) {
         const { email, password, name, action } = params;
         
+        if (action === componentActions.ResetPassword) {
+            fetch(new Request(API_URL + '/users/resetpassword', {
+                method: 'POST',
+                body: JSON.stringify({ email }),
+                headers: new Headers({ 'Content-Type': 'application/json' }),
+            })).then(resetPassRes =>  {
+              return resetPassRes.json();  
+            }).then(resetPassData => {
+                console.log(resetPassData);
+            });
+            return;
+        };
+        
+
         let registerRequest = Promise.resolve({status: 200});
         if (action === componentActions.Register){
             registerRequest = new Promise((resolve, reject) => {

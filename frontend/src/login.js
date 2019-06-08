@@ -15,6 +15,7 @@ import TextField from 'material-ui/TextField';
 import LockIcon from 'material-ui/svg-icons/action/lock-outline';
 import { cyan500, pinkA200 } from 'material-ui/styles/colors';
 import actions from 'redux-form/lib/actions';
+const queryString = require('query-string');
 
 const componentActions = {
     Login: 'Login',
@@ -25,20 +26,33 @@ const componentActions = {
 
 let loginLabel = 'ACCEDER'; //translate('aor.auth.sign_in');
 let registerLabel = 'REGISTRARSE'; //translate('resources.register.label');
+let resetPasswordLabel = 'RESETEAR PASSWORD';
+let sendCodeLabel = 'ENVIAR CÓDIGO'; //translate('aor.auth.sign_in');
+
 
 const actionsParams = {
     [componentActions.Login]: {
         primaryLabel: loginLabel,
         secondaryLabel: registerLabel,
-        action: componentActions.Register
+        thirdLabel: resetPasswordLabel,
+        secondaryAction: componentActions.Register,
+        thirdAction: componentActions.ResetPassword
     },
     [componentActions.Register]: {
         primaryLabel: registerLabel,
         secondaryLabel: loginLabel,
-        action: componentActions.Login
+        thirdLabel: resetPasswordLabel,
+        secondaryAction: componentActions.Login,
+        thirdAction: componentActions.ResetPassword
+    },
+    [componentActions.ResetPassword]: {
+        primaryLabel: sendCodeLabel,
+        secondaryLabel: loginLabel,
+        thirdLabel: registerLabel,
+        secondaryAction: componentActions.Login,
+        thirdAction: componentActions.Register
     },
 }
-
 
 const styles = {
     main: {
@@ -94,8 +108,21 @@ For now, general auth behavior is contained inside login:
 Login, Register, Recover password
 */
 class Login extends Component {
-    ComponentDidMount() {
-        this.setState({action: componentActions.Login});
+    componentDidMount() {
+        let action = componentActions.Login;
+        try{
+            const parsedQuery = queryString.parse(this.props.location.search);
+            const actionParam = parsedQuery.action;
+
+            if (actionParam) {
+                action = actionParam
+            }
+        }
+        catch(err){
+        };
+        
+        
+        this.setState({action: action});
     }
 
     login = ({ email, password, name }) => {
@@ -116,7 +143,10 @@ class Login extends Component {
         let selectedAction = this.state && this.state.action ? actionsParams[this.state.action] : actionsParams[componentActions.Login];
         let primaryLabel = selectedAction.primaryLabel;
         let secondaryLabel = selectedAction.secondaryLabel;
-        let buttonAction = selectedAction.action;
+        let thirdLabel = selectedAction.thirdLabel;
+        
+        let secondaryAction = selectedAction.secondaryAction;
+        let thirdAction = selectedAction.thirdAction;
         
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
@@ -137,7 +167,7 @@ class Login extends Component {
                                     />
                                 </div>
                                 
-                                { this.state && this.state.action === componentActions.ResetPassword &&                                
+                                { this.state && this.state.action === componentActions.RecoverPassword &&                                
                                     <div style={styles.input}>
                                         <Field
                                             name="code"
@@ -148,7 +178,7 @@ class Login extends Component {
                                     </div>
                                 }
 
-                                { (!this.state || this.state.action !== componentActions.RecoverPassword) &&                                
+                                { (!this.state || this.state.action !== componentActions.ResetPassword) &&                                
                                     <div style={styles.input}>
                                         <Field
                                             name="password"
@@ -160,7 +190,7 @@ class Login extends Component {
                                 }
 
                                 { this.state && (this.state.action === componentActions.Register
-                                    || this.state.action === componentActions.ResetPassword) && 
+                                    || this.state.action === componentActions.RecoverPassword) && 
                                     <div>
                                         
                                         <div style={styles.input}>
@@ -187,8 +217,10 @@ class Login extends Component {
                             </CardActions>
                         </form>
                         
-                        <RaisedButton onClick={() => this.changeToAction(buttonAction)} disabled={submitting} label={secondaryLabel} fullWidth />
-                                                    
+                        <RaisedButton onClick={() => this.changeToAction(secondaryAction)} disabled={submitting} label={secondaryLabel} fullWidth />
+                            
+                        <RaisedButton onClick={() => this.changeToAction(thirdAction)} disabled={submitting} label={thirdLabel} fullWidth />
+                        
 
                     </Card>
                     <Notification />
