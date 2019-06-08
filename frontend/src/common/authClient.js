@@ -1,13 +1,20 @@
 import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR, AUTH_CHECK, AUTH_GET_PERMISSIONS } from 'admin-on-rest';
 
+const componentActions = {
+    Login: 'Login',
+    Register: 'Register',
+    RecoverPassword: 'RecoverPassword',
+    ResetPassword: 'ResetPassword'
+}
+
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default (type, params) => {
     if (type === AUTH_LOGIN) {
-        const { email, password, name, register } = params;
+        const { email, password, name, action } = params;
         
         let registerRequest = Promise.resolve({status: 200});
-        if (register){
+        if (action === componentActions.Register){
             registerRequest = new Promise((resolve, reject) => {
                 return fetch(new Request(API_URL + '/users', {
                     method: 'POST',

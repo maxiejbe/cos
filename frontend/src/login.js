@@ -14,6 +14,31 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import LockIcon from 'material-ui/svg-icons/action/lock-outline';
 import { cyan500, pinkA200 } from 'material-ui/styles/colors';
+import actions from 'redux-form/lib/actions';
+
+const componentActions = {
+    Login: 'Login',
+    Register: 'Register',
+    RecoverPassword: 'RecoverPassword',
+    ResetPassword: 'ResetPassword'
+}
+
+let loginLabel = 'ACCEDER'; //translate('aor.auth.sign_in');
+let registerLabel = 'REGISTRARSE'; //translate('resources.register.label');
+
+const actionsParams = {
+    [componentActions.Login]: {
+        primaryLabel: loginLabel,
+        secondaryLabel: registerLabel,
+        action: componentActions.Register
+    },
+    [componentActions.Register]: {
+        primaryLabel: registerLabel,
+        secondaryLabel: loginLabel,
+        action: componentActions.Login
+    },
+}
+
 
 const styles = {
     main: {
@@ -63,19 +88,24 @@ const renderInput = ({ meta: { touched, error } = {}, input: { ...inputProps }, 
         fullWidth
     />;
 
+/*
+Custom routes are not working correctly with admin-on-rest
+For now, general auth behavior is contained inside login:
+Login, Register, Recover password
+*/
 class Login extends Component {
-    constructor() {
-        super();
-        this.setState({register: false});
+    ComponentDidMount() {
+        this.setState({action: componentActions.Login});
     }
 
     login = ({ email, password, name }) => {
         const { userLogin, location } = this.props;
-        userLogin({ email, password, name, register: this.state && this.state.register }, location.state ? location.state.nextPathname : '/');
+        const selectedAction = this.state && this.state.action ? this.state.action : componentActions.Login;
+        userLogin({ email, password, name, action: selectedAction }, location.state ? location.state.nextPathname : '/');
     }
 
-    changeToRegister = (register) => {
-        this.setState({register});
+    changeToAction = (action) => {
+        this.setState({action: action});
     }
 
     render() {
@@ -83,14 +113,11 @@ class Login extends Component {
         const muiTheme = getMuiTheme(theme);
         const { primary1Color, accent1Color } = getColorsFromTheme(muiTheme);
 
-        let primaryLabel = translate('aor.auth.sign_in');
-        let secondaryLabel = translate('resources.register.label');
-        if (this.state && this.state.register){
-            const auxLabel = secondaryLabel;
-            secondaryLabel = primaryLabel;
-            primaryLabel = auxLabel;
-        }
-
+        let selectedAction = this.state && this.state.action ? actionsParams[this.state.action] : actionsParams[componentActions.Login];
+        let primaryLabel = selectedAction.primaryLabel;
+        let secondaryLabel = selectedAction.secondaryLabel;
+        let buttonAction = selectedAction.action;
+        
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
                 <div style={{ ...styles.main, backgroundColor: primary1Color }}>
@@ -109,16 +136,31 @@ class Login extends Component {
                                         type="email"
                                     />
                                 </div>
-                                <div style={styles.input}>
-                                    <Field
-                                        name="password"
-                                        component={renderInput}
-                                        floatingLabelText={translate('aor.auth.password')}
-                                        type="password"
-                                    />
-                                </div>
+                                
+                                { this.state && this.state.action === componentActions.ResetPassword &&                                
+                                    <div style={styles.input}>
+                                        <Field
+                                            name="code"
+                                            component={renderInput}
+                                            floatingLabelText={translate('resources.recoverPassword.code')}
+                                            type="password"
+                                        />
+                                    </div>
+                                }
 
-                                { this.state && this.state.register && 
+                                { (!this.state || this.state.action !== componentActions.RecoverPassword) &&                                
+                                    <div style={styles.input}>
+                                        <Field
+                                            name="password"
+                                            component={renderInput}
+                                            floatingLabelText={translate('aor.auth.password')}
+                                            type="password"
+                                        />
+                                    </div>
+                                }
+
+                                { this.state && (this.state.action === componentActions.Register
+                                    || this.state.action === componentActions.ResetPassword) && 
                                     <div>
                                         
                                         <div style={styles.input}>
@@ -145,8 +187,8 @@ class Login extends Component {
                             </CardActions>
                         </form>
                         
-                        <RaisedButton onClick={() => this.changeToRegister(this.state ? !this.state.register : true)} disabled={submitting} label={secondaryLabel} fullWidth />
-                            
+                        <RaisedButton onClick={() => this.changeToAction(buttonAction)} disabled={submitting} label={secondaryLabel} fullWidth />
+                                                    
 
                     </Card>
                     <Notification />
