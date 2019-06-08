@@ -1,8 +1,8 @@
 import React from 'react';
-import RichTextInput from 'aor-rich-text-input';
 import {
   Edit,
   ReferenceInput,
+  LongTextInput,
   NumberInput,
   SelectInput,
   SimpleForm,
@@ -24,7 +24,7 @@ export const ProductEdit = props => (
     <SimpleForm redirect="list">
         <TextInput source="code" validate={[required, maxLength(6)]} />
         <TextInput source="name" validate={[required, maxLength(20)]} />
-        <RichTextInput source="description" validate={[maxLength(100)]} />
+        <LongTextInput source="description" validate={[maxLength(100)]} />
         
         <ReferenceInput
           label="resources.products.fields.ingredient"

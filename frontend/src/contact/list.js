@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardText } from 'material-ui/Card';
-import { RichTextField, List, ViewTitle, Datagrid, TextField } from 'admin-on-rest';
+import { List, ViewTitle, Datagrid, TextField } from 'admin-on-rest';
 
 const ContactTitle = () => {
     return <span>Consultas realizadas</span>;
@@ -23,7 +23,7 @@ export const ContactList = (props) => (
                 <TextField source="surname" label="resources.contacts.fields.surname" />
                 <TextField source="email" label="resources.contacts.fields.email" />
                 <TextField source="phone" label="resources.contacts.fields.phone" />
-                <RichTextField source="message" label="resources.contacts.fields.message" />
+                <TextField source="message" label="resources.contacts.fields.message" />
             </Datagrid>
         </List>
     </div>

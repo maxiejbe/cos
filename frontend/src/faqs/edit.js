@@ -1,6 +1,5 @@
 import React from 'react';
-import RichTextInput from 'aor-rich-text-input';
-import { Edit, SimpleForm, TextInput, maxLength, required } from 'admin-on-rest';
+import { LongTextInput, Edit, SimpleForm, TextInput, maxLength, required } from 'admin-on-rest';
 
 const IngredientTitle = ({ record }) => {
 
@@ -11,7 +10,7 @@ export const FaqEdit = (props) => (
     <Edit title={<IngredientTitle />} {...props}>
         <SimpleForm redirect="list"> 
             <TextInput source="question" validate={[ required, maxLength(100) ]} />
-            <RichTextInput source="answer" validate={[ maxLength(300) ]} />
+            <LongTextInput source="answer" validate={[ maxLength(300) ]} />
         </SimpleForm>
     </Edit>
 );

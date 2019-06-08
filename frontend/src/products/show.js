@@ -3,7 +3,7 @@ import {
   TextField,
   Show,
   SimpleShowLayout,
-  RichTextField,
+  LongTextField,
   ImageField
 } from 'admin-on-rest';
 
@@ -18,7 +18,7 @@ export const ProductShow = props => (
        <SimpleShowLayout>
           <TextField source="code" label="resources.products.fields.code" />
           <TextField source="name" label="resources.products.fields.name" />
-          <RichTextField source="description" label="resources.products.fields.description" />
+          <LongTextField source="description" label="resources.products.fields.description" />
           <TextField source="ingredient.name" label="resources.products.fields.ingredient" />
           <TextField source="size" label="resources.products.fields.size" />
           <ImageField source="singleImage" label="resources.products.fields.image" />
