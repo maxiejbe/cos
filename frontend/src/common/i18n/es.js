@@ -3,7 +3,7 @@ export const messages = {
       action: {
           delete: 'Eliminar',
           show: 'Mostrar',
-          list: 'Listar',
+          list: 'Cancelar',
           save: 'Guardar',
           create: 'Crear',
           edit: 'Editar',
