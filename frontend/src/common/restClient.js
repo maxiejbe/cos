@@ -148,8 +148,8 @@ const getFilenameFromUrl = url => url.substring(url.lastIndexOf('/') + 1);
 const convertUrlToFileInput = urls => {
   urls = !Array.isArray(urls) && urls !== null ? [urls] : urls;
   return (urls || []).map(url => ({
-    src: url,
-    title: getFilenameFromUrl(url)
+    src: url ? url : '',
+    title: getFilenameFromUrl(url ? url : '')
   }));
 };
 const convertProductResponseToREST = json => ({
