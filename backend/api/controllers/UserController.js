@@ -22,8 +22,13 @@ module.exports = {
       return res.json(500, {err: EMAIL_REQUIRED});
     }
 
-    sendGrid.sendResetPasswordEmail(email);
-    return res.json(200, {});
+    User.findOne({email: email}, function(err, user){
+      if (err || !user){
+        return res.json(500, {err: USER_NOT_EXISTS});
+      }
+      sendGrid.sendResetPasswordEmail(email);
+      return res.json(200, {});
+    })
   },
   recoverPassword: function(req, res, user){
 
@@ -39,10 +44,6 @@ module.exports = {
       return res.json(500, {err: CODE_REQUIRED});
     }
 
-    if (parseInt(code) !== email.hashCode()){
-      return res.json(500, {err: CODE_INCORRECT});
-    }
-
     if (!password){
       return res.json(500, {err: PASSWORD_REQUIRED});
     }
@@ -52,6 +53,10 @@ module.exports = {
         return res.json(500, {err: USER_NOT_EXISTS});
       }
 
+      if (parseInt(code) !== email.hashCode()){
+        return res.json(500, {err: CODE_INCORRECT});
+      }  
+      
       user.password = password;
       User.update({id: user.id}, user, function(err, savedUser){
         if (err || !savedUser){
