@@ -9,7 +9,7 @@ const IngredientTitle = ({ record }) => {
 export const FaqEdit = (props) => (
     <Edit title={<IngredientTitle />} {...props}>
         <SimpleForm redirect="list"> 
-            <TextInput source="question" validate={[ required, maxLength(100) ]} />
+            <LongTextInput source="question" validate={[ required, maxLength(100) ]} />
             <LongTextInput source="answer" validate={[ maxLength(300) ]} />
         </SimpleForm>
     </Edit>
