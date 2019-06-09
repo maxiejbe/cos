@@ -122,6 +122,10 @@ export const messages = {
         nameLength: 'Máximo 40 caracteres'
       }
     },
+    recoverPassword: {
+      action: 'Recuperar password',
+      code: 'Código (Ver mail)'
+    },
     ingredients: {
       search: {
         name: 'Buscar nombre'

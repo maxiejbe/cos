@@ -20,7 +20,7 @@ createTransporter = function () {
 
 const transporter = createTransporter();
 
-module.exports.sendContactEmail = function (contactData) {
+/*module.exports.sendContactEmail = function (contactData) {
   let contactMessage = 'Nombre: {0}<br><br>Email: {1}<br><br>Tel: {2}<br><br>Asunto: {3}<br><br>Mensaje: {4}'
     .format(contactData.name, contactData.email, contactData.phone ? contactData.phone : '-', contactData.subject, contactData.message);
 
@@ -36,5 +36,30 @@ module.exports.sendContactEmail = function (contactData) {
       return console.log(error);
     }
   });
+};*/
 
+getEmailFooter = function () {
+  return '<br><br>* MENSAJE GENERADO AUTOMATICAMENTE, POR FAVOR NO RESPONDA ESTE MAIL.'
+}
+
+module.exports.sendResetPasswordEmail = function (email) {
+  let recoverPasswordLink = sails.config.FRONTEND_URL + '/#/login?action=RecoverPassword';
+  
+  let resetPasswordMessage = 'Estimado/a,<br><br>{0}{1}<br><br>{2}<br><br>Saludos{3}'
+    .format('Su código para recuperar la password es: ',
+      email.hashCode(),
+      'Ingrese al siguiente <a href="' + recoverPasswordLink + '">link para cambiar su password.</a>.',
+      getEmailFooter());
+
+  const msg = {
+    to: email,
+    from: sails.config.AUTH_ACCOUNT_EMAIL,
+    subject: sails.config.SENDGRID_RESET_PASSWORD_EMAIL_SUBJECT,
+    html: resetPasswordMessage,
+  };
+  return transporter.sendMail(msg, (error, info) => {
+    if (error) {
+      return console.log(error);
+    }
+  });
 };

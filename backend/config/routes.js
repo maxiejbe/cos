@@ -47,10 +47,15 @@ module.exports.routes = {
     action: 'upload',  
   },
 
-  /*'GET /users/resetpassword': {  
+  'GET /users/resetpassword': {  
     controller: 'UserController',  
     action: 'resetPassword',  
-  },*/
+  },
+
+  'GET /users/recoverpassword': {  
+    controller: 'UserController',  
+    action: 'recoverPassword',  
+  }
 
   /***************************************************************************
   *                                                                          *
