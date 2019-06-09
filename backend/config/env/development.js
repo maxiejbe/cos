@@ -21,11 +21,11 @@ module.exports = {
     connection: 'localServer'
   },
 
-  AUTH_ACCOUNT_EMAIL: 'pruebataller2slack@gmail.com',
-  AUTH_ACCOUNT_PASSWORD: 'pepepepe',
+  AUTH_ACCOUNT_EMAIL: 'cos.rta.automatica@gmail.com',
+  AUTH_ACCOUNT_PASSWORD: '',
 
-  SENDGRID_EMAIL_SENDER: 'pruebataller2slack@gmail.com',
-  SENDGRID_EMAIL_CONTACT: 'pruebataller2slack@gmail.com',
+  SENDGRID_EMAIL_SENDER: 'cos.rta.automatica@gmail.com',
+  SENDGRID_EMAIL_CONTACT: 'cos.rta.automatica@gmail.com',
   SENDGRID_CONTACT_EMAIL_SUBJECT: 'Cos - Contacto',
   SENDGRID_RESET_PASSWORD_EMAIL_SUBJECT: 'Cos - Recuperar password',
 

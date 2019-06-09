@@ -8,24 +8,48 @@ const componentActions = {
 }
 
 const API_URL = process.env.REACT_APP_API_URL;
+const FRONT_URL = process.env.REACT_APP_FRONT_URL;
 
 export default (type, params) => {
     if (type === AUTH_LOGIN) {
-        const { email, password, name, action } = params;
+        const { email, password, name, code, action } = params;
         
         if (action === componentActions.ResetPassword) {
-            fetch(new Request(API_URL + '/users/resetpassword', {
-                method: 'POST',
-                body: JSON.stringify({ email }),
-                headers: new Headers({ 'Content-Type': 'application/json' }),
-            })).then(resetPassRes =>  {
-              return resetPassRes.json();  
-            }).then(resetPassData => {
-                console.log(resetPassData);
+            return new Promise((resolve, reject) => {
+                return fetch(new Request(API_URL + '/users/resetpassword', {
+                    method: 'POST',
+                    body: JSON.stringify({ email }),
+                    headers: new Headers({ 'Content-Type': 'application/json' }),
+                })).then(resetPassRes =>  {
+                    return resetPassRes.json().then(resetPassData => {
+                        if (resetPassRes.status < 200 || resetPassRes.status >= 300) {
+                            return reject(resetPassData.err);
+                        }
+                        window.location.href = FRONT_URL + '/#/login?action=RecoverPassword';
+                        window.location.reload();
+                    });  
+                });
             });
-            return;
         };
-        
+
+        if (action === componentActions.RecoverPassword) {
+            return new Promise((resolve, reject) => {
+                return fetch(new Request(API_URL + '/users/recoverpassword', {
+                    method: 'POST',
+                    body: JSON.stringify({ email, code, password }),
+                    headers: new Headers({ 'Content-Type': 'application/json' }),
+                })).then(recoverPassRes =>  {
+                    recoverPassRes.json().then(recoverPassData => {
+                        if (recoverPassRes.status < 200 || recoverPassRes.status >= 300) {
+                            return reject(recoverPassData.err);
+                        }
+                        
+                        window.location.href = FRONT_URL + '/#/login?action=Login';
+                        window.location.reload();
+                    });  
+                });
+            });
+        };
 
         let registerRequest = Promise.resolve({status: 200});
         if (action === componentActions.Register){

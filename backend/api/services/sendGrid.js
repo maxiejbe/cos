@@ -43,7 +43,8 @@ getEmailFooter = function () {
 }
 
 module.exports.sendResetPasswordEmail = function (email) {
-  let recoverPasswordLink = sails.config.FRONTEND_URL + '/recoverpassword';
+  let recoverPasswordLink = sails.config.FRONTEND_URL + '/#/login?action=RecoverPassword';
+  
   let resetPasswordMessage = 'Estimado/a,<br><br>{0}{1}<br><br>{2}<br><br>Saludos{3}'
     .format('Su código para recuperar la password es: ',
       email.hashCode(),

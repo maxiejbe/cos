@@ -26,8 +26,9 @@ const componentActions = {
 
 let loginLabel = 'ACCEDER'; //translate('aor.auth.sign_in');
 let registerLabel = 'REGISTRARSE'; //translate('resources.register.label');
-let resetPasswordLabel = 'RESETEAR PASSWORD';
+let resetPasswordLabel = 'OLVIDÉ MI PASSWORD';
 let sendCodeLabel = 'ENVIAR CÓDIGO'; //translate('aor.auth.sign_in');
+let changePasswordLabel = 'CAMBIAR PASSWORD'; //translate('aor.auth.sign_in');
 
 
 const actionsParams = {
@@ -47,6 +48,13 @@ const actionsParams = {
     },
     [componentActions.ResetPassword]: {
         primaryLabel: sendCodeLabel,
+        secondaryLabel: loginLabel,
+        thirdLabel: registerLabel,
+        secondaryAction: componentActions.Login,
+        thirdAction: componentActions.Register
+    },
+    [componentActions.RecoverPassword]: {
+        primaryLabel: changePasswordLabel,
         secondaryLabel: loginLabel,
         thirdLabel: registerLabel,
         secondaryAction: componentActions.Login,
@@ -125,10 +133,10 @@ class Login extends Component {
         this.setState({action: action});
     }
 
-    login = ({ email, password, name }) => {
+    login = ({ email, password, name, code }) => {
         const { userLogin, location } = this.props;
         const selectedAction = this.state && this.state.action ? this.state.action : componentActions.Login;
-        userLogin({ email, password, name, action: selectedAction }, location.state ? location.state.nextPathname : '/');
+        userLogin({ email, password, name, code, action: selectedAction }, location.state ? location.state.nextPathname : '/');
     }
 
     changeToAction = (action) => {
@@ -173,7 +181,7 @@ class Login extends Component {
                                             name="code"
                                             component={renderInput}
                                             floatingLabelText={translate('resources.recoverPassword.code')}
-                                            type="password"
+                                            //type="password"
                                         />
                                     </div>
                                 }
@@ -201,14 +209,15 @@ class Login extends Component {
                                                 type="password"
                                             />
                                         </div>
-
-                                        <div style={styles.input} >
-                                            <Field
-                                                name="name"
-                                                component={renderInput}
-                                                floatingLabelText={translate('resources.register.name')}
-                                            />
-                                        </div>
+                                        {this.state.action !== componentActions.RecoverPassword &&
+                                            <div style={styles.input} >
+                                                <Field
+                                                    name="name"
+                                                    component={renderInput}
+                                                    floatingLabelText={translate('resources.register.name')}
+                                                />
+                                            </div>
+                                        }
                                     </div>
                                 }
                             </div>
@@ -266,6 +275,10 @@ const enhance = compose(
                 errors.password = translate('resources.register.errors.passwordLength');
             }
 
+            if (!values.code) {
+                errors.code = translate('aor.validation.required');
+            }
+            
             if (values.repeatpassword && (values.password !== values.repeatpassword)){
                 errors.repeatpassword = translate('resources.register.errors.repeatpassword');
             } 

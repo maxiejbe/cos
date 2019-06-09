@@ -19,7 +19,7 @@ module.exports = {
   resetPassword: function(req, res, user){
     const email = req.body.email;
     if (!email){
-      return res.json(500, {message: EMAIL_REQUIRED});
+      return res.json(500, {err: EMAIL_REQUIRED});
     }
 
     sendGrid.sendResetPasswordEmail(email);
@@ -32,30 +32,30 @@ module.exports = {
     const password = req.body.password;
 
     if (!email){
-      return res.json(500, {message: EMAIL_REQUIRED});
+      return res.json(500, {err: EMAIL_REQUIRED});
     }
 
     if (!code){
-      return res.json(500, {message: CODE_REQUIRED});
+      return res.json(500, {err: CODE_REQUIRED});
     }
 
     if (parseInt(code) !== email.hashCode()){
-      return res.json(500, {message: CODE_INCORRECT});
+      return res.json(500, {err: CODE_INCORRECT});
     }
 
     if (!password){
-      return res.json(500, {message: PASSWORD_REQUIRED});
+      return res.json(500, {err: PASSWORD_REQUIRED});
     }
 
     User.findOne({email: email}, function(err, user){
       if (err || !user){
-        return res.json(500, {message: USER_NOT_EXISTS});
+        return res.json(500, {err: USER_NOT_EXISTS});
       }
 
       user.password = password;
       User.update({id: user.id}, user, function(err, savedUser){
         if (err || !savedUser){
-          return res.json(500, {message: USER_NOT_UPDATED});
+          return res.json(500, {err: USER_NOT_UPDATED});
         }
         return res.json(200, {});
       })
