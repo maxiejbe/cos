@@ -14,10 +14,10 @@ import { ProductsList, ProductCreate, ProductEdit, ProductShow } from './product
 import ProductIcon from 'material-ui/svg-icons/action/shopping-cart';
 
 import { FaqsList, FaqCreate, FaqEdit } from './faqs';
-import FaqIcon from 'material-ui/svg-icons/action/question-answer';
+import FaqIcon from 'material-ui/svg-icons/action/search';
 
 import { ContactList, ContactCreate } from './contact';
-import ContactIcon from 'material-ui/svg-icons/action/search';
+import ContactIcon from 'material-ui/svg-icons/action/question-answer';
 
 import { UsersList, UserCreate, UserEdit, UserShow } from './users';
 import UserIcon from 'material-ui/svg-icons/action/supervisor-account';
