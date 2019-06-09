@@ -15,7 +15,7 @@ module.exports = {
       },
       answer: {
         type: 'string',
-        size: 300,
+        size: 500,
         required: true
       }
     }
