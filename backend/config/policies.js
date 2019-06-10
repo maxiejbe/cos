@@ -51,7 +51,7 @@ module.exports.policies = {
 
   'UserController': {
     '*': ['isAuthorized', 'isAdminRole'],
-    'create': ['emailExists', 'setClientRole'],
+    'create': ['emailExistsValidate','emailExists', 'setClientRole'],
     'recoverPassword': true,
     'resetPassword': true
   },
