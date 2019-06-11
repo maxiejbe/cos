@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Edit,
+  DisabledInput,
   SimpleForm,
   TextInput,
   maxLength,
@@ -19,7 +20,7 @@ const UserTitle = ({ record }) => {
 export const UserEdit = props => (
   <Edit title={<UserTitle />} {...props}>
     <SimpleForm redirect="list">
-        <TextInput source="email" validate={[required, maxLength(20)]} />
+        <DisabledInput source="email"/>
         <TextInput source="name" validate={[required, maxLength(40)]} />
         <TextInput source="password" label="resources.users.fields.newPassword" type="password" validate={[maxLength(40), passwordValidation]} />
         <RadioButtonGroupInput source="role" choices={[
